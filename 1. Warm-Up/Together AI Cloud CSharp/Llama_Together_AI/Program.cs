@@ -1,4 +1,5 @@
 ﻿using DotNetEnv;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 
@@ -8,12 +9,13 @@ namespace Llama_Together_AI
     {
         private static string apiKey = string.Empty;
         private static string model = string.Empty;
+        private static List<(string Role, string Content)> chatHistory = new List<(string, string)>();
 
         static async Task Main()
         {
             Env.Load();
             apiKey = Env.GetString("TOGETHER_AI_KEY");
-            model = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"; // Choose a model from Together AI
+            model = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free";
 
             while (true)
             {
@@ -25,21 +27,27 @@ namespace Llama_Together_AI
                     break;
                 }
 
-                string response = await GetTogetherAIResponse(prompt);
+                chatHistory.Add(("user", prompt));
+
+                string response = await GetTogetherAIResponse();
                 Console.WriteLine(response);
+
+                chatHistory.Add(("assistant", response));
                 Console.WriteLine();
-            }         
+            }
         }
 
-        static async Task<string> GetTogetherAIResponse(string prompt)
+        static async Task<string> GetTogetherAIResponse()
         {
             using HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
+            var messages = chatHistory.Select(item => new { role = item.Role, content = item.Content }).ToArray();
+
             var requestBody = new
             {
                 model = model,
-                prompt = prompt,
+                messages = messages,
                 max_tokens = 1200,
                 temperature = 0.25
             };
@@ -47,7 +55,7 @@ namespace Llama_Together_AI
             string jsonBody = JsonSerializer.Serialize(requestBody);
             var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync("https://api.together.ai/v1/completions", content);
+            HttpResponseMessage response = await client.PostAsync("https://api.together.ai/v1/chat/completions", content);
             if (response.IsSuccessStatusCode)
             {
                 string responseString = await response.Content.ReadAsStringAsync();
@@ -56,7 +64,7 @@ namespace Llama_Together_AI
 
                 if (root.TryGetProperty("choices", out JsonElement choices) && choices.GetArrayLength() > 0)
                 {
-                    return choices[0].GetProperty("text").GetString() ?? "No response received.";
+                    return choices[0].GetProperty("message").GetProperty("content").GetString() ?? "No response received.";
                 }
             }
 

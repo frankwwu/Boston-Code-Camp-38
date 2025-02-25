@@ -1,16 +1,17 @@
 # Get started using Hugging Face:
 
 1. Create an Account at [https://huggingface.co](https://huggingface.co).
-   
-2. Explore the Model Hub [https://huggingface.co/models](https://huggingface.co/models) to discover pre-trained models.
 
-3. Install the required libraries. For example:
+2. Select **Settings** from the dropdown menu, find and click **Access Tokens**, Click **New Token**, then follow the instruction to create and copy the new token.
+
+2. Install the required libraries. For example:
      ```bash
+     pip install huggingface_hub 
      pip install transformers
      ```
-4. Find models at  [https://huggingface.co/models](https://huggingface.co/models)
+3. Find models at  [https://huggingface.co/models](https://huggingface.co/models)
 
-5. Use a Pre-trained Model. For example, to generate text with GPT-J 6B:
+4. Use a Pre-trained Model. For example, to generate text with GPT-J 6B:
      ```python
      from transformers import pipeline
 

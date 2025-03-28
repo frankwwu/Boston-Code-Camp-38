@@ -1,0 +1,3 @@
+**Hugging Face** is a leading AI platform providing open-source models, the Transformers library, and cloud-based inference for NLP, vision, and audio tasks. It enables developers to access and fine-tune state-of-the-art AI models easily.  
+
+**Together AI** is a high-performance AI platform offering efficient hosting and fine-tuning of open-source LLMs, optimized for cost-effective inference and large-scale AI applications. It provides API access to models like Llama, Mistral, and DeepSeek.

@@ -190,7 +190,7 @@ async def query_model(prompt: str) -> str:
         raise HTTPException(status_code=500, detail="Invalid response from API")
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8002)
 
-# uvicorn main:app --reload
-# http://127.0.0.1:8000/docs
+# uvicorn securing_ai_pipeline:app --reload
+# http://127.0.0.1:8002/docs

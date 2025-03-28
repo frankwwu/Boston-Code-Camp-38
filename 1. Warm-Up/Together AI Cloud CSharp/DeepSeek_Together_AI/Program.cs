@@ -13,7 +13,7 @@ namespace DeepSeek_Together_AI
         static async Task Main()
         {
             Env.Load();
-            apiKey = Env.GetString("TOGETHER_AI_KEY");
+            apiKey = Env.GetString("TOGETHER_API_KEY");
             model = "deepseek-ai/DeepSeek-R1";
 
             while (true)

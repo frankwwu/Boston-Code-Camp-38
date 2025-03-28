@@ -14,7 +14,7 @@ namespace Llama_Together_AI
         static async Task Main()
         {
             Env.Load();
-            apiKey = Env.GetString("TOGETHER_AI_KEY");
+            apiKey = Env.GetString("TOGETHER_API_KEY");
             model = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free";
 
             while (true)

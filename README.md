@@ -22,11 +22,12 @@ Set up the environment for running AI models locally and using APIs.
 
 ## 3. Securing AI APIs
 
-* Adversarial Distillation Defense
+* Toxicity Filtering
+* Adversarial Attack Defense
 * Input Sanitization
 * Monitoring and Logging
 * Output Filtering
-* Toxicity Filtering
+* Rate Limiting
 
 ## 4. AI Mediation Models
 
